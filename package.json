@@ -1,0 +1,37 @@
+{
+  "name": "copilot-tokens",
+  "version": "1.0.0",
+  "description": "Analyze GitHub Copilot Chat sessions saved by Visual Studio Code (VS Code). Track token usage and estimate session costs based on OpenRouter pricing data. Report detailed analytics including message counts, token consumption, and total expenses. Export results as JSON or CSV. Cross-platform utility to monitor Copilot usage and budget AI costs.",
+  "main": "src/index.js",
+  "files": [
+    "bin/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "copilot-tokens": "./bin/copilot-tokens"
+  },
+  "scripts": {
+    "report": "node ./bin/copilot-tokens",
+    "warmup-tokenizer": "node -e \"require('@microsoft/tiktokenizer').createByEncoderName('o200k_base').then(() => process.stdout.write('Tokenizer ready\\n')).catch((error) => { console.error(error); process.exit(1); })\""
+  },
+  "keywords": [],
+  "author": "Daniele Benegiamo (Kafumanto)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kafumanto/copilot-tokens.git"
+  },
+  "homepage": "https://github.com/kafumanto/copilot-tokens#readme",
+  "bugs": {
+    "url": "https://github.com/kafumanto/copilot-tokens/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "@microsoft/tiktokenizer": "^1.0.10"
+  }
+}

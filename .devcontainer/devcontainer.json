@@ -1,0 +1,42 @@
+{
+	// Friendly label shown by VS Code in the Dev Containers UI.
+	"name": "copilot-tokens",
+	
+	// NOTE: "debian13" is the official tag ("debian-13" is older).
+	"image": "mcr.microsoft.com/devcontainers/base:debian13",
+
+	"runArgs": [
+		// Workaround to error "mkdir: cannot create directory '/tmp/.X11-unix': Permission denied" with Podman.
+		// See <https://github.com/devcontainers/features/issues/1480>
+		"--tmpfs=/tmp:rw,exec,nosuid,nodev,mode=1777",
+		// Ensure the workspace is owned by user "vscode" (otherwise it's owned by "root", causing Maven to raise permission denied errors).
+		"--userns=keep-id"
+	],
+	"mounts": [
+		// Mount the local VS Code user data directory as read-only at /host-vscode-data in the container.
+		"type=bind,source=${localEnv:APPDATA}/Code/User,target=/host-vscode-data,ro"
+		// Mount the Linux host's VS Code user data directory as read-only at /host-vscode-data in the container.
+		// "type=bind,source=${localEnv:HOME}/.config/Code/User,target=/host-vscode-data,ro"
+	],
+	"postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/post-create.sh",
+
+	"features": {
+		// Node.js is provided as a Dev Container feature so the shared base image can
+		// stay generic and reusable across non-JavaScript tools.
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "22"
+		},
+		"ghcr.io/devcontainers/features/copilot-cli:1": {}
+	},
+
+	// VS Code customizations that are applied only when this repo is opened in the container.
+	"customizations": {
+		"vscode": {
+			"settings": {
+				// Enable integration with custom GitHub Copilot instructions and plugins for AI-assisted development in this repository.
+				"chat.includeApplyingInstructions": true,
+				"chat.includeReferencedInstructions": true
+			}
+		}
+	}
+}

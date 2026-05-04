@@ -1,0 +1,32 @@
+FROM docker.io/library/node:lts-alpine AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+RUN npm run warmup-tokenizer
+
+FROM docker.io/library/alpine:3.22
+
+RUN apk add --no-cache nodejs
+
+WORKDIR /app
+
+LABEL org.opencontainers.image.title="copilot-tokens"
+LABEL org.opencontainers.image.description="Report transcript-derived token counts for saved GitHub Copilot chat sessions"
+LABEL org.opencontainers.image.authors="Daniele Benegiamo (Kafumanto)"
+LABEL org.opencontainers.image.source="https://github.com/kafumanto/copilot-tokens"
+LABEL org.opencontainers.image.url="https://github.com/kafumanto/copilot-tokens"
+LABEL org.opencontainers.image.licenses="MIT"
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY bin ./bin
+COPY src ./src
+COPY container/entrypoint.sh ./entrypoint.sh
+
+RUN chmod 0555 /app/entrypoint.sh /app/bin/copilot-tokens && mkdir -p /data /cache && chmod 1777 /cache
+
+ENV HOME=/data
+ENV COPILOT_TOKENS_CACHE_DIR=/cache
+
+ENTRYPOINT ["/app/entrypoint.sh"]

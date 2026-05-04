@@ -1,0 +1,6 @@
+{
+	// Enable automatic loading of *.instructions.md files when their applyTo glob matches the file being edited.
+	"chat.includeApplyingInstructions": true,
+	// Enable loading of instruction files referenced via Markdown links from other instruction files.
+	"chat.includeReferencedInstructions": true
+}

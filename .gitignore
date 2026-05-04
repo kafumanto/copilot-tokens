@@ -1,0 +1,6 @@
+# NodeJS
+node_modules/
+
+# Dev Containers
+.devcontainer/.env
+.devcontainer/**/.env
