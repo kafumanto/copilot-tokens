@@ -23,6 +23,7 @@ podman run --rm `
   -v "${env:APPDATA}\Code\User:/data:ro" `
   -v "${env:TEMP}:/cache" `
   ghcr.io/kafumanto/copilot-tokens:latest `
+  --filter 30 `
   --costs
 ```
 
@@ -33,6 +34,7 @@ podman run --rm ^
   -v "%APPDATA%\Code\User:/data:ro" ^
   -v "%TEMP%:/cache" ^
   ghcr.io/kafumanto/copilot-tokens:latest ^
+  --filter 30 ^
   --costs
 ```
 
@@ -43,6 +45,7 @@ podman run --rm \
   -v "$HOME/.config/Code/User:/data:ro" \
   -v "${TMPDIR:-/tmp}:/cache" \
   ghcr.io/kafumanto/copilot-tokens:latest \
+  --filter 30 \
   --costs
 ```
 
@@ -53,6 +56,7 @@ podman run --rm \
   -v "$HOME/.vscode-server/data/User:/data:ro" \
   -v "${TMPDIR:-/tmp}:/cache" \
   ghcr.io/kafumanto/copilot-tokens:latest \
+  --filter 30 \
   --costs
 ```
 
@@ -63,6 +67,7 @@ podman run --rm \
   -v "$HOME/Library/Application Support/Code/User:/data:ro" \
   -v "${TMPDIR:-/tmp}:/cache" \
   ghcr.io/kafumanto/copilot-tokens:latest \
+  --filter 30 \
   --costs
 ```
 
