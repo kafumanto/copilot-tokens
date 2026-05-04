@@ -2,11 +2,20 @@
 
 # Required tools:
 #   podman
+#
 # Expected working directory:
 #   Any; the script resolves repository paths relative to its own location.
+#
 # Credentials file format for --creds:
+#
 #   GITHUB_USER=your-github-user
 #   GITHUB_TOKEN=your-github-token
+#
+# The GITHUB_TOKEN must have permissions to create and publish packages in the target repository,
+# and to read package metadata if --push-public is used.
+# For [personal accounts](https://github.com/settings/tokens), the "write:packages" scope is sufficient.
+# For [organization accounts](https://github.com/settings/organizations), the token must have the "packages" permission for the target repository,
+# and may require additional permissions depending on the organization's security settings.
 
 set -eu
 
